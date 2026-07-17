@@ -4,6 +4,20 @@ An Android client for real-time drone-based structural crack monitoring — buil
 
 > 📱 Android · Kotlin · minSdk 24
 
+<p align="center">
+  <a href="https://github.com/5amuel02/CrackMonitoringApplication/releases/latest">
+    <img src="https://img.shields.io/github/v/release/5amuel02/CrackMonitoringApplication?label=Download%20APK&style=for-the-badge&color=0EA5E9" alt="Download latest APK" />
+  </a>
+</p>
+
+## Install
+
+1. Download `CrackMonitoring-v1.0.0.apk` from **[the latest release](https://github.com/5amuel02/CrackMonitoringApplication/releases/latest)**
+2. Open it on your Android device (7.0+) and allow installation from this source when prompted
+3. From the in-app **Settings** screen, point the stream/data server IP at your own Flask/YOLO backend — without one, the live feed and detection log have nothing to show, but the rest of the UI is explorable regardless
+
+The APK is signed with a dedicated release key; verify it with `apksigner verify --print-certs CrackMonitoring-v1.0.0.apk`.
+
 ## Features
 
 - **Live video feed** from a drone/camera stream via WebView, with drone-connection and YOLO crack-detection status indicators
@@ -37,13 +51,16 @@ app/src/main/java/com/example/seismicaplication/
 
 ## Building it yourself
 
+Just want to run the app? Grab the [prebuilt APK](https://github.com/5amuel02/CrackMonitoringApplication/releases/latest) instead.
+
 ```bash
 git clone <this-repo>
 cd CrackMonitoringApplication
-./gradlew assembleDebug
+./gradlew assembleDebug      # debug APK
+./gradlew assembleRelease    # minified release APK — unsigned unless you provide your own keystore.properties
 ```
 
-Requires JDK 17+ and the Android SDK. On first run, set the stream/data server IP and port from the in-app Settings screen — defaults point to a local development network and won't resolve outside it.
+Requires JDK 17+ and the Android SDK. On first run, set the stream/data server IP and port from the in-app Settings screen — they default to `0.0.0.0` (unset) rather than any real address.
 
 ## Status
 
