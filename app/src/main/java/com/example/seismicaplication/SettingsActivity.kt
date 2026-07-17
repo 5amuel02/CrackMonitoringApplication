@@ -36,9 +36,9 @@ class SettingsActivity : BaseActivity() {
         const val KEY_INTERVAL    = "poll_interval"
         const val KEY_DARK_MODE   = "dark_mode"
 
-        const val DEFAULT_STREAM_IP   = "10.142.240.57"
+        const val DEFAULT_STREAM_IP   = "0.0.0.0"
         const val DEFAULT_STREAM_PORT = "5000"
-        const val DEFAULT_DATA_IP     = "10.192.5.19"
+        const val DEFAULT_DATA_IP     = "0.0.0.0"
         const val DEFAULT_DATA_PORT   = "5000"
         const val DEFAULT_INTERVAL    = "5"
     }
