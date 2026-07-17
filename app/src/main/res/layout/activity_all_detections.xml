@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_all_detections.xml  (redesign modern/AI)
+    Halaman "Semua Data Deteksi" — akumulasi data selama sesi aktif.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark_blue">
+
+    <!-- ── Header ──────────────────────────────────────────── -->
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/bg_header_dark"
+        android:paddingTop="30dp"
+        android:paddingBottom="14dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Judul -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📊  SEMUA DATA DETEKSI"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingBottom="6dp"/>
+
+        <!-- Badge jumlah data + info sesi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/tv_data_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 data tersimpan"
+                android:textColor="@color/accent_primary"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:background="@drawable/badge_bg"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_session_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sesi: 0m 0s · Refresh: 0×"
+                android:textColor="#80FFFFFF"
+                android:textSize="11sp"/>
+
+        </LinearLayout>
+
+        <!-- Tombol aksi baris bawah header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="8dp">
+
+            <!-- Ekspor CSV -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_export_csv"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="42dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/btn_blue"
+                android:text="⬇  CSV"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:cornerRadius="10dp"/>
+
+            <!-- Ekspor PDF -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_export_pdf"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="42dp"
+                android:backgroundTint="@color/btn_blue"
+                android:text="📄  PDF"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:cornerRadius="10dp"/>
+
+        </LinearLayout>
+
+        <!-- Bersihkan sesi — merah, eksplisit supaya tidak ditimpa accent oleh ThemeManager -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_clear_session"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:backgroundTint="#E53935"
+            android:text="🗑  Bersihkan Sesi"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:cornerRadius="10dp"/>
+
+    </LinearLayout>
+
+    <!-- Garis aksen tipis -->
+    <View
+        android:id="@+id/headerAccentLine"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/accent_primary"
+        app:layout_constraintTop_toBottomOf="@id/header_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- ── Konten utama ─────────────────────────────────────── -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_all"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/headerAccentLine"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- Catatan informasi akumulasi -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ℹ️  Data di halaman ini terakumulasi sepanjang sesi dan tidak terhapus saat refresh."
+                    android:textColor="#80FFFFFF"
+                    android:textSize="11sp"
+                    android:gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:background="@color/bg_card_blue"/>
+
+                <!-- List RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_all_detections"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="gone"/>
+
+                <!-- Empty state -->
+                <LinearLayout
+                    android:id="@+id/layout_empty_state_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="80dp"
+                    android:paddingBottom="40dp"
+                    android:visibility="visible">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginBottom="20dp">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/circle_bg" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="📊"
+                            android:textSize="40sp"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Belum Ada Data Tersimpan"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_empty_subtitle_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Belum terhubung ke server.\nTarik ke bawah untuk mencoba lagi."
+                        android:textColor="#80FFFFFF"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_marginBottom="24dp"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_retry_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:paddingStart="32dp"
+                        android:paddingEnd="32dp"
+                        android:text="🔄  Muat Data"
+                        android:backgroundTint="@color/btn_blue"
+                        android:textColor="@android:color/white"
+                        app:cornerRadius="10dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- ── Bottom Navigation ────────────────────────────────── -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_header_dark"
+        app:itemIconTint="@android:color/white"
+        app:menu="@menu/bottom_nav_menu"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- Skeleton loader saat memuat -->
+    <com.example.seismicaplication.SkeletonLoaderView
+        android:id="@+id/progress_bar_all"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/headerAccentLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

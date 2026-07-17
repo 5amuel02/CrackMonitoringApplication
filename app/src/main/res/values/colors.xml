@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ── Legacy names kept for compatibility, repointed to new accent ── -->
+    <color name="purple_200">#A5B4FC</color>
+    <color name="purple_500">#22D3EE</color>
+    <color name="purple_700">#0EA5E9</color>
+    <color name="teal_200">#22D3EE</color>
+    <color name="teal_700">#0EA5E9</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- ── Brand / AI accent ──────────────────────────────────────────── -->
+    <color name="accent_primary">#22D3EE</color>      <!-- cyan — "AI scan" accent -->
+    <color name="accent_primary_dark">#0EA5E9</color>
+    <color name="accent_secondary">#6366F1</color>     <!-- indigo -->
+
+    <!-- ── Severity / status semantic (matches gauge thresholds) ───────── -->
+    <color name="severity_high">#EF4444</color>
+    <color name="severity_medium">#F59E0B</color>
+    <color name="severity_low">#22C55E</color>
+
+    <!-- ── Dark surfaces ─────────────────────────────────────────────── -->
+    <color name="bg_dark_blue">#0B1120</color>         <!-- base background -->
+    <color name="bg_card_blue">#141B2E</color>         <!-- card surface -->
+    <color name="bg_header_dark">#142869</color>       <!-- header / app bar (= ThemeManager.DARK_HEADER) -->
+    <color name="btn_blue">#0EA5E9</color>
+    <color name="text_cyan">#22D3EE</color>
+    <color name="text_red">#EF4444</color>
+    <color name="nav_icon_color">#64748B</color>
+
+    <!-- ── Light surfaces ────────────────────────────────────────────── -->
+    <color name="bg_main">#F1F5F9</color>
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#64748B</color>
+</resources>
